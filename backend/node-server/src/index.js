@@ -1,5 +1,7 @@
 const express = require('express');
 require('dotenv').config();
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
 //Import API Routers
 const authRouter = require('./router/auth');
@@ -11,10 +13,12 @@ const courseCategoryRouter = require('./router/course/courseCategory');
 const qnaRouter = require('./router/qna');
 
 // Start Express App
-const bodyParser = require('body-parser');
 const app = express();
+
+//Middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
 // Media URL
 app.use('/media', express.static('media'));
@@ -28,24 +32,18 @@ app.use('/courseDomain', courseDomainRouter);
 app.use('/courseCategory', courseCategoryRouter);
 app.use('/', qnaRouter);
 
-
-//The 404 Route 
-app.use('*', function(req, res,next){
-  res.status(404).send({'message':'Requested resource doesn\'t exist'});
+//The 404 Route
+app.use('*', function (req, res, next) {
+  res.status(404).send({ message: "Requested resource doesn't exist" });
 });
-
 
 // Error Handler
 app.use((err, req, res, next) => {
-  console.error(err.stack)
-  res.status(500).send({'message':'Something went wrong in Server'})
-})
-
+  console.error(err.stack);
+  res.status(500).send({ message: 'Something went wrong in Server' });
+});
 
 // Start Server
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port http://localhost:${process.env.PORT}`);
 });
-
-
-
