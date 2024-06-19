@@ -6,14 +6,13 @@ const {
   createCourse,
   updateCourse,
   deleteCourse,
-} = require('../controller/course/course');
-const upload = require('../middleware/fileUpload');
-const verifyToken = require('../middleware/verifyToken');
+} = require('../../controller/course/course');
+const upload = require('../../middleware/fileUpload');
 
 const {
   getLatestCourse,
   getTrendingCourse,
-} = require('../controller/course/courseChoice');
+} = require('../../controller/course/courseChoice');
 
 // Course Choice
 router.get('/latest', getLatestCourse);

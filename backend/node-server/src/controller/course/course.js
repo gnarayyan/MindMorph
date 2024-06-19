@@ -1,15 +1,9 @@
 const prisma = require('../../../prisma/prisma');
-const courseSchema = require('../../validation/course');
+const courseSchema = require('../../validation/course/course');
 
 // Get All Courses
 const getAllCourse = async (req, res) => {
   const courses = await prisma.course.findMany();
-
-  // const response = courses.map(
-  //   (course) => (course.syllabus = JSON.parse(course.syllabus))
-  // );
-
-  // res.json(response);
 
   for (let index = 0; index < courses.length; index++) {
     const course = courses[index];
@@ -23,6 +17,13 @@ const getCourse = async (req, res) => {
   const course = await prisma.course.findFirst({
     where: {
       id: parseInt(req.params.id),
+    },
+    include: {
+      author: {
+        select: {
+          fullName: true,
+        },
+      },
     },
   });
 
