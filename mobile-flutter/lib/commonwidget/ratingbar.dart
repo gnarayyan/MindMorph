@@ -19,12 +19,12 @@ Widget ratingbar(double size, double paddingsize, int starcount) {
             if (index < initialRating) {
               return Icon(
                 Icons.star,
-                color: Colors.amber, // Color for rated stars
+                color: Colors.amber,
               );
             } else {
               return Icon(
                 Icons.star_border,
-                color: unratedColor, // Color for unrated stars
+                color: unratedColor,
               );
             }
           },
