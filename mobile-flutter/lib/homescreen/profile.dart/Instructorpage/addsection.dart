@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:morph/const/color.dart';
 import 'package:morph/const/fonts.dart';
 import 'package:morph/homescreen/profile.dart/Instructorpage/Instructorcourselist.dart';
-import 'package:morph/homescreen/profile.dart/Instructorpage/oploadprogress.dart';
 import 'package:morph/homescreen/profile.dart/Instructorpage/preview.dart';
+import 'package:morph/homescreen/profile.dart/Instructorpage/uloadprogress.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class AddSection extends StatefulWidget {

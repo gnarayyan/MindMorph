@@ -34,6 +34,8 @@ class _videoplayerState extends State<Playenrollcourse> {
     User(sectionname: 'flutter First course', length: '15:20'),
   ];
   final ExpansionTileController controller = ExpansionTileController();
+  final ExpansionTileController controller2 = ExpansionTileController();
+  final ExpansionTileController controller3 = ExpansionTileController();
   late CustomVideoPlayerController _customVideoPlayerController;
   bool isvisible = true;
   String toggle = 'Showless';
@@ -147,6 +149,9 @@ class _videoplayerState extends State<Playenrollcourse> {
                 ],
               ),
             ),
+            // talako lagi
+            //
+
             10.heightBox,
             Expanded(
               child: SingleChildScrollView(
@@ -172,12 +177,102 @@ class _videoplayerState extends State<Playenrollcourse> {
                         ),
                         10.heightBox,
                         Column(
-                          children: [
+                          children: <Widget>[
                             ExpansionTile(
                               maintainState: true,
                               controller: controller,
                               title: const Text(
-                                'Course Chapters',
+                                'Course Chapters1',
+                                style: TextStyle(color: Vx.amber100),
+                              ),
+                              children: <Widget>[
+                                Container(
+                                  height: 250,
+                                  width: 500,
+                                  color: backgrounghilghtcolor,
+                                  child: ListView.builder(
+                                      itemCount: user.length,
+                                      itemBuilder: ((context, index) {
+                                        final users = user[index];
+                                        return Container(
+                                          height: 80,
+                                          color: boxtilecolor,
+                                          child: ListTile(
+                                            contentPadding:
+                                                const EdgeInsets.symmetric(
+                                                    horizontal: 20.0,
+                                                    vertical: 20.0),
+                                            title: Text(
+                                              users.sectionname,
+                                              style: const TextStyle(
+                                                  color: titlecolor),
+                                            ),
+                                            subtitle: Text(
+                                              users.length,
+                                              style: const TextStyle(
+                                                  color: FeatureColor),
+                                            ),
+                                            trailing: const Icon(
+                                                Icons.arrow_forward_ios),
+                                            onTap: () {
+                                              Get.to(() => Playenrollcourse());
+                                            },
+                                          ),
+                                        );
+                                      })),
+                                ),
+                              ],
+                            ),
+                            ExpansionTile(
+                              maintainState: true,
+                              controller: controller2,
+                              title: const Text(
+                                'Course Chapters 2',
+                                style: TextStyle(color: Vx.amber100),
+                              ),
+                              children: <Widget>[
+                                Container(
+                                  height: 250,
+                                  width: 500,
+                                  color: backgrounghilghtcolor,
+                                  child: ListView.builder(
+                                      itemCount: user.length,
+                                      itemBuilder: ((context, index) {
+                                        final users = user[index];
+                                        return Container(
+                                          height: 80,
+                                          color: boxtilecolor,
+                                          child: ListTile(
+                                            contentPadding:
+                                                const EdgeInsets.symmetric(
+                                                    horizontal: 20.0,
+                                                    vertical: 20.0),
+                                            title: Text(
+                                              users.sectionname,
+                                              style: const TextStyle(
+                                                  color: titlecolor),
+                                            ),
+                                            subtitle: Text(
+                                              users.length,
+                                              style: const TextStyle(
+                                                  color: FeatureColor),
+                                            ),
+                                            trailing: const Icon(
+                                                Icons.arrow_forward_ios),
+                                            onTap: () {
+                                              Get.to(() => Playenrollcourse());
+                                            },
+                                          ),
+                                        );
+                                      })),
+                                ),
+                              ],
+                            ),
+                            ExpansionTile(
+                              maintainState: true,
+                              controller: controller3,
+                              title: const Text(
+                                'Course Chapters3',
                                 style: TextStyle(color: Vx.amber100),
                               ),
                               children: <Widget>[
@@ -219,7 +314,7 @@ class _videoplayerState extends State<Playenrollcourse> {
                               ],
                             ),
                           ],
-                        )
+                        ),
                       ],
                     ),
                     20.heightBox,
