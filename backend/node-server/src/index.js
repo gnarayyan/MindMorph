@@ -2,7 +2,7 @@ const express = require('express');
 require('dotenv').config();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+var morgan = require('morgan');
 //Import API Routers
 const authRouter = require('./router/auth');
 const home = require('./controller/home');
@@ -14,7 +14,8 @@ const qnaRouter = require('./router/qna');
 
 // Start Express App
 const app = express();
-
+app.use(morgan('dev')); // common
+// morgan('tiny');
 //Middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
