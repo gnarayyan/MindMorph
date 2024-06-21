@@ -48,7 +48,7 @@ class _SearchState extends State<Search> {
                       backgroundColor: boxcolor,
                     ),
                     onPressed: () {},
-                    child: Text(
+                    child: const Text(
                       'Flutter',
                       style: TextStyle(color: FeatureColor, fontSize: 20),
                     )),
