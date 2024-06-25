@@ -2,8 +2,20 @@ const prisma = require('../../../prisma/prisma');
 const courseCategorySchema = require('../../validation/course/courseCategory');
 
 const getAllCourseCategories = async (req, res) => {
-  const courses = await prisma.courseCategory.findMany();
-  res.status(200).json(courses);
+  const domainId = req.query.domainId;
+
+  if (domainId) {
+    const courseCategoriesByDomainId = await prisma.courseCategory.findMany({
+      where: {
+        courseDomainId: parseInt(domainId),
+      },
+    });
+
+    return res.status(200).json(courseCategoriesByDomainId);
+  }
+
+  const allCourseCategories = await prisma.courseCategory.findMany();
+  res.status(200).json(allCourseCategories);
 };
 
 //get courseCategory
