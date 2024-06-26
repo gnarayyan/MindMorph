@@ -34,7 +34,6 @@ const getCourse = async (req, res) => {
 const createCourse = async (req, res) => {
   const { error, value } = courseSchema.course.validate({
     ...req.body,
-    thumbnail: req.file.path,
   });
 
   // If Joi validation fails, send an error response
