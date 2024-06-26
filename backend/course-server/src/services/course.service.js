@@ -16,78 +16,50 @@ const courseServices = {
 
   // Retrieve a course by ID
   getCourseById: async (courseId) => {
-    try {
-      return await Course.findOne({ courseId }).populate('sections');
-    } catch (error) {
-      throw error;
-    }
+    return await Course.findOne({ courseId }).populate('sections');
   },
 
   // Retrieve all courses
   getAllCourses: async () => {
-    try {
-      return await Course.find({}).populate('sections');
-    } catch (error) {
-      throw error;
-    }
+    return await Course.find({}).populate('sections');
   },
 
   // Update a course by ID
   updateCourseById: async (courseId, updateData) => {
-    try {
-      return await Course.findByIdAndUpdate(courseId, updateData, {
-        new: true,
-      });
-    } catch (error) {
-      throw error;
-    }
+    return await Course.findByIdAndUpdate(courseId, updateData, {
+      new: true,
+    });
   },
 
   // Update a course by ID
   updateCourseByCourseId: async (courseId, updateData) => {
-    try {
-      return await Course.findOneAndUpdate({ courseId: courseId }, updateData);
-      // return await Course.findByIdAndUpdate(courseId, updateData, {
-      //   new: true,
-      // });
-    } catch (error) {
-      throw error;
-    }
+    return await Course.findOneAndUpdate({ courseId: courseId }, updateData);
+    // return await Course.findByIdAndUpdate(courseId, updateData, {
+    //   new: true,
+    // });
   },
 
   // Delete a course by ID
   deleteCourseById: async (courseId) => {
-    try {
-      return await Course.findOneAndDelete({ courseId });
-    } catch (error) {
-      throw error;
-    }
+    return await Course.findOneAndDelete({ courseId });
   },
 
   // Add a section to a course
   addSectionToCourse: async (courseId, sectionId) => {
-    try {
-      return await Course.findOneAndUpdate(
-        { courseId },
-        { $push: { sections: sectionId } },
-        { new: true }
-      );
-    } catch (error) {
-      throw error;
-    }
+    return await Course.findOneAndUpdate(
+      { courseId },
+      { $push: { sections: sectionId } },
+      { new: true }
+    );
   },
 
   // Remove a section from a course
   removeSectionFromCourse: async (courseId, sectionId) => {
-    try {
-      return await Course.findByIdAndUpdate(
-        courseId,
-        { $pull: { sections: sectionId } },
-        { new: true }
-      );
-    } catch (error) {
-      throw error;
-    }
+    return await Course.findByIdAndUpdate(
+      courseId,
+      { $pull: { sections: sectionId } },
+      { new: true }
+    );
   },
 };
 
