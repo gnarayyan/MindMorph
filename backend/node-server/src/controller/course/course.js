@@ -40,13 +40,13 @@ const createCourse = async (req, res) => {
   if (error) return res.status(400).json({ message: error.details[0].message });
 
   try {
-    await prisma.course.create({
+    const result = await prisma.course.create({
       data: value,
     });
     // Send a success response with the created user object
     res.status(201).json({
       message: 'Course Created',
-      data: { ...value, syllabus: JSON.parse(value.syllabus) },
+      data: result,
     });
   } catch (e) {
     console.error(e);
