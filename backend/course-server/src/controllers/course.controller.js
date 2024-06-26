@@ -18,13 +18,10 @@ const createCourse = async (req, res) => {
     titleVideoUrl: req.files.titleVideo[0].path,
     courseThumbnailUrl: req.files.courseThumbnail[0].path,
   };
-  console.log('data: ', data);
-  console.log('files: ', req.files);
   const { error, value } = courseValidator.validate(data);
 
   // If Joi validation fails, delete video file and send an error response
   if (error) {
-    console.log('Validated data: ', value);
     await deleteFile(value.titleVideoUrl).catch(console.error);
     await deleteFile(value.courseThumbnailUrl).catch(console.error);
     return res.status(400).json({ message: error.details[0].message });
