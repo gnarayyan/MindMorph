@@ -7,7 +7,8 @@ const courseValidationSchema = Joi.object({
   objective: Joi.string().required(),
   requirement: Joi.string().required(),
   sections: Joi.array().items(Joi.string().hex().length(24)), // Assuming MongoDB ObjectIds for sections
-  titleVideoLink: Joi.string().required(), // Joi.string().uri().required()
+  titleVideoUrl: Joi.string().required(), // Joi.string().uri().required()
+  courseThumbnailUrl: Joi.string().required(),
 });
 
 module.exports = courseValidationSchema;
