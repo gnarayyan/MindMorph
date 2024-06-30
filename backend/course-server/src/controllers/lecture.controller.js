@@ -9,6 +9,7 @@ const generateTranscodings = require('../utils/video/generateTranscodings');
 const copyFile = require('../utils/copyFile');
 const sectionService = require('../services/section.service');
 const transcodeVideo = require('./helper/transcodeAlgorithm');
+const playlistGenerator = require('./playlist_generator/playlistGenerator');
 
 // Create Lecture
 const createLecture = async (req, res) => {
@@ -80,7 +81,17 @@ const createLecture = async (req, res) => {
     // await generateTranscodings(lecture.file, lecturePath);
 
     // TODO: Generate Playlist
-    await copyFile('media/playlist.m3u8', `${lecturePath}/playlist.m3u8`);
+    const subtitleLanguages = subtitles.map((item) => item.language);
+
+    playlistGenerator.masterPlaylist(
+      lecturePath,
+      ['240', '360', '480', '720', '1080'],
+      subtitleLanguages
+    );
+    lecturePath,
+      playlistGenerator.subtitlePlaylist(lecturePath, subtitleLanguages);
+    // await copyFile('media/playlist.m3u8', `${lecturePath}/playlist.m3u8`);
+
     // await deleteFile(lecture.file);
 
     // Move Subtitles

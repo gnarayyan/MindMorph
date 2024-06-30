@@ -30,12 +30,12 @@ const createCourse = async (req, res) => {
   // Save to DB
   try {
     const newCourse = await courseService.createCourse(value);
-    res.status(201).json(newCourse);
+    res.status(201).json({ message: 'Course Created' });
   } catch (error) {
     await deleteFile(value.titleVideoUrl).catch(console.error);
     await deleteFile(value.courseThumbnailUrl).catch(console.error);
 
-    res.status(400).json({ message: error });
+    res.status(400).json({ message: 'Failed to Create Course', error: error });
   }
 };
 

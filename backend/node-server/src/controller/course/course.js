@@ -45,8 +45,8 @@ const createCourse = async (req, res) => {
     });
     // Send a success response with the created user object
     res.status(201).json({
-      message: 'Course Created',
-      data: result,
+      message: 'Course Initialized',
+      courseId: result.id,
     });
   } catch (e) {
     console.error(e);
