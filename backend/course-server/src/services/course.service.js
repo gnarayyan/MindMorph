@@ -1,3 +1,5 @@
+const { section } = require('../db/schemas');
+
 const Course = require('../db/models/models').Course;
 
 const courseServices = {
@@ -16,12 +18,27 @@ const courseServices = {
 
   // Retrieve a course by ID
   getCourseById: async (courseId) => {
-    return await Course.findOne({ courseId }).populate('sections');
+    return await Course.findOne({ courseId }).select({
+      sections: false,
+      _id: false,
+    });
   },
 
   // Retrieve all courses
   getAllCourses: async () => {
     return await Course.find({}).populate('sections');
+  },
+
+  // Filter courses by coursesId array
+  getCoursesByCoursesIds: async (courseIdsArray) => {
+    // return { all: 'data' };
+    // return courseIdsArray.map(
+    //   async (courseId) => await Course.findOne({ courseId })
+    // );
+
+    return await Course.find({ courseId: { $in: courseIdsArray } }).select(
+      'courseId title courseThumbnailUrl'
+    );
   },
 
   // Update a course by ID

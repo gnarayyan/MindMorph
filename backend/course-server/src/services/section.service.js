@@ -1,23 +1,24 @@
 const Section = require('../db/models/models').Section;
+const Course = require('../db/models/models').Course;
 
 const sectionServices = {
   // Create a new section
   createSection: async (sectionData) => {
-    try {
-      const section = new Section(sectionData);
-      return await section.save();
-    } catch (error) {
-      throw error;
-    }
+    const section = new Section(sectionData);
+    return await section.save();
   },
-
   // Retrieve a section by ID
-  getSectionById: async (sectionId) => {
-    try {
-      return await Section.findById(sectionId).populate('lectures');
-    } catch (error) {
-      throw error;
-    }
+  getSectionById: async (sectionId) =>
+    await Section.findById(sectionId).populate('lectures'),
+  getAllSectionsByCourseId: async (courseId) => {
+    return await await Course.findOne({ courseId }).populate({
+      path: 'sections',
+      populate: {
+        path: 'lectures',
+        model: 'Lecture',
+      },
+    });
+    // .populate('lectures');
   },
 
   // Retrieve all sections
@@ -30,50 +31,30 @@ const sectionServices = {
   // },
 
   // Update a section by ID
-  updateSectionById: async (sectionId, updateData) => {
-    try {
-      return await Section.findByIdAndUpdate(sectionId, updateData, {
-        new: true,
-      });
-    } catch (error) {
-      throw error;
-    }
-  },
+  updateSectionById: async (sectionId, updateData) =>
+    await Section.findByIdAndUpdate(sectionId, updateData, {
+      new: true,
+    }),
 
   // Delete a section by ID
-  deleteSectionById: async (sectionId) => {
-    try {
-      return await Section.findByIdAndDelete(sectionId);
-    } catch (error) {
-      throw error;
-    }
-  },
+  deleteSectionById: async (sectionId) =>
+    await Section.findByIdAndDelete(sectionId),
 
   // Add a lecture to a section
-  addLectureToSection: async (sectionId, lectureId) => {
-    try {
-      return await Section.findByIdAndUpdate(
-        sectionId,
-        { $push: { lectures: lectureId } },
-        { new: true }
-      );
-    } catch (error) {
-      throw error;
-    }
-  },
+  addLectureToSection: async (sectionId, lectureId) =>
+    await Section.findByIdAndUpdate(
+      sectionId,
+      { $push: { lectures: lectureId } },
+      { new: true }
+    ),
 
   // Remove a lecture from a section
-  removeLectureFromSection: async (sectionId, lectureId) => {
-    try {
-      return await Section.findByIdAndUpdate(
-        sectionId,
-        { $pull: { lectures: lectureId } },
-        { new: true }
-      );
-    } catch (error) {
-      throw error;
-    }
-  },
+  removeLectureFromSection: async (sectionId, lectureId) =>
+    await Section.findByIdAndUpdate(
+      sectionId,
+      { $pull: { lectures: lectureId } },
+      { new: true }
+    ),
 };
 
 module.exports = sectionServices;

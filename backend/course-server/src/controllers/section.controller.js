@@ -102,10 +102,25 @@ const getSection = async (req, res) => {
   }
 };
 
+// Fetch All Courses
+const getAllSections = async (req, res) => {
+  const courseId = req.params.courseId;
+  try {
+    const course = await sectionService.getAllSectionsByCourseId(courseId);
+
+    if (!course)
+      return res.status(404).send({ message: "Course doesn't Exist" });
+
+    return res.status(200).json(course.sections);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
 module.exports = {
   createSection,
   updateSection,
   deleteSection,
   getSection,
-  // getAllSections,
+  getAllSections,
 };

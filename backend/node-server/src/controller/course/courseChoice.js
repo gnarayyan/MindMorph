@@ -5,19 +5,19 @@ const getLatestCourse = async (req, res) => {
     const { qty = 2, sort = 'latest' } = req.query;
 
     // Assuming you have a Course model in your Prisma schema
-    const courses = await prisma.course.findMany({
-      take: parseInt(qty), // Limit the number of courses
-      orderBy: { createdAt: sort === 'latest' ? 'desc' : 'asc' }, // Sort by createdAt field
-      select: {
-        id: true,
-        title: true,
-        thumbnail: true,
-        rating: true,
-        price: true,
-      },
-    });
+    // const courses = await prisma.course.findMany({
+    //   take: parseInt(qty), // Limit the number of courses
+    //   orderBy: { createdAt: sort === 'latest' ? 'desc' : 'asc' }, // Sort by createdAt field
+    //   select: {
+    //     id: true,
+    //     title: true,
+    //     thumbnail: true,
+    //     rating: true,
+    //     price: true,
+    //   },
+    // });
 
-    res.json(courses);
+    res.json([]);
   } catch (error) {
     console.error('Error fetching courses:', error);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -41,7 +41,9 @@ const getTrendingCourse = async (req, res) => {
     //   },
     // });
 
+
     // res.json(topRatedProducts);
+
     res.json([]);
   } catch (error) {
     console.error('Error fetching top-rated products:', error);

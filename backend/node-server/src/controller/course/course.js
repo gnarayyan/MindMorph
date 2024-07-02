@@ -2,6 +2,21 @@ const prisma = require('../../../prisma/prisma');
 const courseSchema = require('../../validation/course/course');
 
 // Get All Courses
+const getAllCourseByAuthorId = async (req, res) => {
+  const courses = await prisma.course.findMany({
+    where: {
+      authorId: parseInt(req.params.authorId),
+    },
+    select: {
+      id: true,
+      // authorId: true,
+      price: true,
+    },
+  });
+  res.json(courses);
+};
+
+// Get All Courses
 const getAllCourse = async (req, res) => {
   const courses = await prisma.course.findMany();
 
@@ -27,7 +42,7 @@ const getCourse = async (req, res) => {
     },
   });
 
-  res.json({ ...course, syllabus: JSON.parse(course.syllabus) });
+  res.status(200).json(course);
 };
 
 // Create a new course
@@ -40,13 +55,13 @@ const createCourse = async (req, res) => {
   if (error) return res.status(400).json({ message: error.details[0].message });
 
   try {
-    await prisma.course.create({
+    const result = await prisma.course.create({
       data: value,
     });
     // Send a success response with the created user object
     res.status(201).json({
-      message: 'Course Created',
-      data: { ...value, syllabus: JSON.parse(value.syllabus) },
+      message: 'Course Initialized',
+      courseId: result.id,
     });
   } catch (e) {
     console.error(e);
@@ -119,6 +134,7 @@ const deleteCourse = async (req, res) => {
 };
 
 module.exports = {
+  getAllCourseByAuthorId,
   getAllCourse,
   getCourse,
   createCourse,

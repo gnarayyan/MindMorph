@@ -6,6 +6,7 @@ const router = express.Router();
 
 // const COURSE_ID_IN_REQUEST_BODY = false;
 
+router.post('/bulk', controller.getAllCoursesByCoursesIdsArray);
 router.post(
   '/',
   uploadCourseFiles,
