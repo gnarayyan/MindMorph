@@ -41,6 +41,9 @@ const getTrendingCourse = async (req, res) => {
     //   },
     // });
 
+
+    // res.json(topRatedProducts);
+
     res.json([]);
   } catch (error) {
     console.error('Error fetching top-rated products:', error);
