@@ -11,4 +11,10 @@ const courseValidationSchema = Joi.object({
   courseThumbnailUrl: Joi.string().required(),
 });
 
-module.exports = courseValidationSchema;
+const coursesByCoursesIdsArray = Joi.object({
+  courseIds: Joi.array().items(Joi.number()).min(1),
+});
+// 22,
+// 24,
+// 25
+module.exports = { courseValidationSchema, coursesByCoursesIdsArray };

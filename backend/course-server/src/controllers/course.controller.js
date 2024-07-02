@@ -1,5 +1,5 @@
 const courseService = require('../services/course.service');
-const courseValidator = require('../validation/course.validation');
+const validator = require('../validation/course.validation');
 const path = require('node:path');
 const deleteFile = require('../utils/deleteFile');
 const deleteFolder = require('../utils/deleteFolder');
@@ -18,7 +18,7 @@ const createCourse = async (req, res) => {
     titleVideoUrl: req.files.titleVideo[0].path,
     courseThumbnailUrl: req.files.courseThumbnail[0].path,
   };
-  const { error, value } = courseValidator.validate(data);
+  const { error, value } = validator.courseValidationSchema.validate(data);
 
   // If Joi validation fails, delete video file and send an error response
   if (error) {
@@ -84,7 +84,7 @@ const getCourseById = async (req, res) => {
   try {
     const course = await courseService.getCourseById(req.params.id);
     if (course)
-      return res.status(200).json({ message: 'Course Fetched', course });
+      return res.status(200).json(course );
     res.status(400).json({ message: "Course doesn't exist" });
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -95,9 +95,25 @@ const getCourseById = async (req, res) => {
 const getAllCourses = async (req, res) => {
   try {
     const courses = await courseService.getAllCourses();
-    res.status(200).json(courses);
+    return res.status(200).json(courses);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    return res.status(400).json({ message: error.message });
+  }
+};
+
+// Route to get courses by list of course IDs
+const getAllCoursesByCoursesIdsArray = async (req, res) => {
+  const { error, value } = validator.coursesByCoursesIdsArray.validate(
+    req.body
+  );
+
+  if (error) return res.status(400).json({ message: error.details[0].message });
+
+  try {
+    const courses = await courseService.getCoursesByCoursesIds(value.courseIds);
+    res.status(200).send(courses);
+  } catch (err) {
+    res.status(500).send({ error: 'Internal Server Error' });
   }
 };
 
@@ -107,4 +123,5 @@ module.exports = {
   deleteCourse,
   getCourseById,
   getAllCourses,
+  getAllCoursesByCoursesIdsArray,
 };
