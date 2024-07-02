@@ -45,11 +45,16 @@ model User {
   // if authenticates using oauth 
   oauthId       String?
   oauthProvider OAuthProvider?
+
   // Foreign Keys
-  socialHandle  SocialHandle?
-  course        Course[]
-  courseReview  CourseReview[]
-  qna           QnA[]
+  socialHandle      SocialHandle?
+  course            Course[]
+  courseReview      CourseReview[]
+  qna               QnA[]
+  courseReviewReply CourseReviewReply[]
+  cart              Cart[]
+  QnAReply          QnAReply[]
+  EnrolledCourse    EnrolledCourse[]
 }
 
 model SocialHandle {
@@ -66,6 +71,7 @@ model SocialHandle {
 model CourseDomain {
   id               Int              @id @default(autoincrement())
   name             String
+  // Foreign Keys
   courseCategories CourseCategory[]
 }
 
@@ -74,7 +80,9 @@ model CourseCategory {
   name           String
   coursedomain   CourseDomain @relation(fields: [courseDomainId], references: [id])
   courseDomainId Int
-  courseId       Course[]
+
+  // Foreign Keys
+  courseId Course[]
 }
 
 model Course {
@@ -92,21 +100,31 @@ model Course {
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
 
-  courseReview CourseReview[]
-
-  qna QnA[]
+  // Foreign Keys
+  courseReview   CourseReview[]
+  qna            QnA[]
+  cart           Cart[]
+  EnrolledCourse EnrolledCourse[]
 }
 
 model CourseReview {
+  id          Int      @id @default(autoincrement())
+  course      Course   @relation(fields: [courseId], references: [id])
+  courseId    Int
+  user        User     @relation(fields: [userId], references: [id])
+  userId      Int
+  description String   @db.VarChar(500)
+  rating      Float
+  updatedAt   DateTime @updatedAt
+}
+
+model CourseReviewReply {
   id             Int      @id @default(autoincrement())
-  course         Course   @relation(fields: [courseId], references: [id])
-  courseId       Int
-  user           User     @relation(fields: [userId], references: [id])
+  User           User     @relation(fields: [userId], references: [id])
   userId         Int
   description    String   @db.VarChar(500)
-  rating         Float // No rating for reply
   updatedAt      DateTime @updatedAt
-  idCourseReview Int? // If set it is a reply/response
+  idCourseReview Int
 }
 
 model QnA {
@@ -115,9 +133,36 @@ model QnA {
   userId        Int
   course        Course   @relation(fields: [courseId], references: [id])
   courseId      Int
-  title         String // No title for resply
   description   String   @db.VarChar(500)
   updatedAt     DateTime @updatedAt
   responseCount Int      @default(0)
-  idQnA         Int? // If set it is response
+}
+
+model QnAReply {
+  id          Int      @id @default(autoincrement())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      Int
+  description String   @db.VarChar(500)
+  updatedAt   DateTime @updatedAt
+  idQnA       Int
+}
+
+model Cart {
+  id         Int      @id @default(autoincrement())
+  course     Course   @relation(fields: [courseId], references: [id])
+  courseId   Int
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int
+  craetedAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  isCheckout Boolean
+}
+
+model EnrolledCourse {
+  id         Int      @id @default(autoincrement())
+  course     Course   @relation(fields: [courseId], references: [id])
+  courseId   Int
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int
+  enrolledAt DateTime @default(now())
 }
