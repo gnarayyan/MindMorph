@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {
+  getAllCourseByAuthorId,
   getAllCourse,
   getCourse,
   createCourse,
@@ -18,6 +19,7 @@ const {
 router.get('/latest', getLatestCourse);
 router.get('/trending', getTrendingCourse);
 
+router.get('/author/:authorId', getAllCourseByAuthorId);
 router.get('', getAllCourse);
 router.get('/:id', getCourse);
 router.post('/', upload('courseThumbnail', 'thumbnail'), createCourse);
