@@ -83,8 +83,25 @@ const deleteCourse = async (req, res) => {
 const getCourseById = async (req, res) => {
   try {
     const course = await courseService.getCourseById(req.params.id);
-    if (course)
-      return res.status(200).json(course );
+    if (course) return res.status(200).json(course);
+    res.status(400).json({ message: "Course doesn't exist" });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+const getCourseTitleAndThumbanail = async (req, res) => {
+  const { error, value } = validator.coursesByCoursesIdsArray.validate(
+    req.body
+  );
+
+  if (error) return res.status(400).json({ message: error.details[0].message });
+
+  try {
+    const course = await courseService.getCourseTitleAndThumbnailByIdsArray(
+      value.courseIds
+    );
+    if (course) return res.status(200).json(course);
     res.status(400).json({ message: "Course doesn't exist" });
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -124,4 +141,5 @@ module.exports = {
   getCourseById,
   getAllCourses,
   getAllCoursesByCoursesIdsArray,
+  getCourseTitleAndThumbanail,
 };

@@ -15,7 +15,9 @@ router.post(
 );
 router.put('/:courseId', uploadCourseFiles, controller.updateCourse);
 router.delete('/:id', controller.deleteCourse);
+
 router.get('/:id', controller.getCourseById);
 router.get('', controller.getAllCourses);
+router.post('/titleAndThumbnail', controller.getCourseTitleAndThumbanail);
 
 module.exports = router;

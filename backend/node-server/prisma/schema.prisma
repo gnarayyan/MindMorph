@@ -93,8 +93,8 @@ model Course {
   authorId         Int
   language         Language       @default(English)
   price            Float
-  discountPercent  Float?
-  rating           Float?
+  discountPercent  Float?         @default(0)
+  rating           Float?         @default(0)
   ratingCount      Int            @default(0)
   enrollCount      Int            @default(0)
   createdAt        DateTime       @default(now())

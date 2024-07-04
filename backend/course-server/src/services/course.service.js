@@ -24,6 +24,16 @@ const courseServices = {
     });
   },
 
+  // Retrieve a course title and thumbnail by ID
+  getCourseTitleAndThumbnailByIdsArray: async (courseIdsArray) => {
+    return await Course.find({ courseId: { $in: courseIdsArray } }).select({
+      _id: false,
+      courseId: true,
+      courseThumbnailUrl: true,
+      title: true,
+    });
+  },
+
   // Retrieve all courses
   getAllCourses: async () => {
     return await Course.find({}).populate('sections');
