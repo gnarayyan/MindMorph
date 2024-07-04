@@ -25,6 +25,8 @@ const cartRouter = require('./router/cart');
 const enrollCourseRouter = require('./router/enrolledCourse');
 const oauthRouter = require('./router/oauth');
 const oauthFbRouter = require('./router/oauthFb');
+const gameRouter = require('./router/game')
+const esewaRouter = require('./router/esewa')
 
 // Import Controllers
 const initializeSocket = require('./socket/chat/socket');
@@ -37,6 +39,9 @@ app.use(cors());
 const server = http.createServer(app);
 const io = new Server(server);
 initializeSocket(io);
+
+app.set( 'view engine' , 'ejs' ); 
+
 
 //implement bodyParser
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -80,7 +85,8 @@ app.use('/cart', cartRouter);
 app.use('/enroll', enrollCourseRouter);
 app.use('/', oauthRouter);
 app.use('/', oauthFbRouter);
-
+app.use('/', gameRouter);
+app.use('/',esewaRouter)
 
 // The 404 Route
 app.use('*', function (req, res, next) {
@@ -95,6 +101,9 @@ app.use((err, req, res, next) => {
 
 // Start Server
 const port = process.env.PORT || 3000; // Use a default port if not specified
-server.listen(port, () => {
-  console.log(`Server is running on port http://localhost:${port}`);
+const serverIpAddress = '192.168.1.89'; // Replace with your server's IP address
+
+server.listen(port, serverIpAddress, () => {
+  console.log(`Server is running on http://${serverIpAddress}:${port}`);
 });
+
