@@ -9,11 +9,15 @@ const getLatestCourse = async (req, res) => {
       take: parseInt(qty), // Limit the number of courses
       orderBy: { createdAt: sort === 'latest' ? 'desc' : 'asc' }, // Sort by createdAt field
       select: {
+        author: {
+          select: {
+            fullName: true,
+          },
+        },
+        discountPercent: true,
         id: true,
-        title: true,
-        thumbnail: true,
-        rating: true,
         price: true,
+        rating: true,
       },
     });
 
@@ -33,11 +37,15 @@ const getTrendingCourse = async (req, res) => {
       take: parseInt(qty), // Limit the number of products
       orderBy: { rating: 'desc' }, // Sort by rating in descending order
       select: {
+        author: {
+          select: {
+            fullName: true,
+          },
+        },
+        discountPercent: true,
         id: true,
-        title: true,
-        thumbnail: true,
-        rating: true,
         price: true,
+        rating: true,
       },
     });
 
