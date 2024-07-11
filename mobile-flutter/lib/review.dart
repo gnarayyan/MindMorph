@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:morph/commonwidget/ratingbar.dart';
 import 'package:morph/const/color.dart';
 
 class ReviewPage extends StatefulWidget {
@@ -58,33 +59,38 @@ class _ReviewPageState extends State<ReviewPage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  controller: _reviewController,
-                  style: TextStyle(color: FeatureColor),
-                  decoration: InputDecoration(
-                    hintText: 'Write a review...',
-                    hintStyle: TextStyle(color: Colors.amber),
-                    suffixIcon: IconButton(
-                      icon: Icon(Icons.send),
-                      onPressed: () {
-                        if (_reviewController.text.isNotEmpty) {
-                          setState(() {
-                            reviews.add(
-                              Review(
-                                id: DateTime.now()
-                                    .millisecondsSinceEpoch
-                                    .toString(),
-                                username: getRandomUsername(),
-                                content: _reviewController.text,
-                                replies: [],
-                              ),
-                            );
-                            _reviewController.clear();
-                          });
-                        }
-                      },
+                child: Column(
+                  children: [
+                    ratingbar(0.1, 2, 3),
+                    TextField(
+                      controller: _reviewController,
+                      style: TextStyle(color: FeatureColor),
+                      decoration: InputDecoration(
+                        hintText: 'Write a review...',
+                        hintStyle: TextStyle(color: Colors.amber),
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.send),
+                          onPressed: () {
+                            if (_reviewController.text.isNotEmpty) {
+                              setState(() {
+                                reviews.add(
+                                  Review(
+                                    id: DateTime.now()
+                                        .millisecondsSinceEpoch
+                                        .toString(),
+                                    username: getRandomUsername(),
+                                    content: _reviewController.text,
+                                    replies: [],
+                                  ),
+                                );
+                                _reviewController.clear();
+                              });
+                            }
+                          },
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
             ],
@@ -156,9 +162,8 @@ class ReviewWidget extends StatelessWidget {
                     children: [
                       Text(
                         reply.content,
-                        style: TextStyle(
-                          color:
-                              titlecolor, // Change this to your desired color
+                        style: const TextStyle(
+                          color: titlecolor,
                         ),
                       ),
                       Text(
