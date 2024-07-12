@@ -13,14 +13,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demoo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 60, 56, 66)),
-        useMaterial3: true,
-      ),
-      home: const SplashScreen(),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demoo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color.fromARGB(255, 60, 56, 66)),
+          useMaterial3: true,
+        ),
+        home: SplashScreen());
   }
 }
