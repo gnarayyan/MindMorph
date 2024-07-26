@@ -1,5 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:morph/const/color.dart';
 import 'package:morph/const/fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -14,6 +15,7 @@ class Asignmentpage extends StatefulWidget {
 class _AsignmnetState extends State<Asignmentpage> {
   PlatformFile? pickedfile;
   String date = 'March 29, 2024'; // Example date
+
   Future selectfile() async {
     final result = await FilePicker.platform.pickFiles();
     if (result == null) return;
@@ -23,89 +25,87 @@ class _AsignmnetState extends State<Asignmentpage> {
   }
 
   Future uploadfile() async {
-    //
+    // Upload file logic here
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: context.screenWidth,
-        height: context.screenHeight,
-        color: themecolor,
-        child: Column(
-          children: [
-            50.heightBox,
-            Card(
-              color: backgrounghilghtcolor,
-              shadowColor: const Color.fromARGB(255, 17, 17, 16),
-              clipBehavior: Clip.hardEdge,
-              child: Container(
-                height: 200,
-                width: 500,
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          alignment: Alignment.centerRight,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                          ),
-                          child: ClipOval(
+      body: SingleChildScrollView(
+        child: Container(
+          width: context.screenWidth,
+          height: context.screenHeight,
+          color: themecolor,
+          child: Column(
+            children: [
+              50.heightBox,
+              Card(
+                color: backgrounghilghtcolor,
+                shadowColor: const Color.fromARGB(255, 17, 17, 16),
+                clipBehavior: Clip.hardEdge,
+                child: SizedBox(
+                  height: 200,
+                  width: 500,
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            alignment: Alignment.centerRight,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
                             child: Image.network(
                               'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTGNBuKZS2dQ8gViURYxqj0ih63BJgwf4e1KAPzMc1AyYVjDkc_',
                               width: 75,
                               fit: BoxFit.cover,
                             ),
                           ),
-                        ),
-                        15.widthBox,
-                        'Ram prasad sha'
-                            .text
-                            .size(20)
-                            .color(titlecolor)
-                            .fontFamily(bold)
-                            .make(),
-                        70.widthBox,
-                        Icon(
-                          size: 36,
-                          Icons.school,
-                          color: Color.fromARGB(255, 86, 119, 142),
-                        )
-                      ],
-                    ),
-                    50.heightBox,
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        'Flutter Basic'
-                            .text
-                            .size(20)
-                            .color(titlecolor)
-                            .fontFamily(bold)
-                            .make(),
-                        30.widthBox,
-                        SizedBox(height: 8),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.calendar_today,
-                              color: titlecolor,
-                            ),
-                            SizedBox(width: 8),
-                            Text(
-                              'Due Date: $date',
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  color: Color.fromARGB(255, 192, 218, 245)),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    15.heightBox,
-                    Container(
-                      child: Column(
+                          15.widthBox,
+                          'Flutter Basic courses'
+                              .text
+                              .size(20)
+                              .color(titlecolor)
+                              .fontFamily(bold)
+                              .make(),
+                          70.widthBox,
+                          Icon(
+                            size: 36,
+                            Icons.school,
+                            color: Color.fromARGB(255, 86, 119, 142),
+                          ),
+                        ],
+                      ),
+                      20.heightBox,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          'Points: 10'
+                              .text
+                              .size(20)
+                              .color(Colors.amber)
+                              .fontFamily(bold)
+                              .make(),
+                          30.widthBox,
+                          const SizedBox(height: 8),
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.calendar_today,
+                                color: titlecolor,
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                'Due Date: $date',
+                                style: TextStyle(
+                                    fontSize: 13, color: Colors.amber),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      20.heightBox,
+                      Column(
                         children: [
                           Align(
                             alignment: Alignment.topLeft,
@@ -113,69 +113,94 @@ class _AsignmnetState extends State<Asignmentpage> {
                                 'Complete this given task and submit your work'
                                     .text
                                     .size(13)
-                                    .color(titlecolor)
+                                    .color(Color.fromARGB(255, 190, 214, 254))
                                     .fontFamily(bold)
                                     .make(),
                           ),
                         ],
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            30.heightBox,
-            Expanded(
-                child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Card(
-                color: backgrounghilghtcolor,
-                shadowColor: const Color.fromARGB(255, 17, 17, 16),
-                clipBehavior: Clip.hardEdge,
+              5.heightBox,
+              Card(
                 child: Container(
-                  color: backgrounghilghtcolor,
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  width: double.infinity,
-                  child: Column(
-                    children: [
-                      10.heightBox,
-                      Row(
-                        children: [
-                          'Assignment-1'
-                              .text
-                              .size(20)
-                              .color(titlecolor)
-                              .fontFamily(bold)
-                              .make(),
-                          130.widthBox,
-                          'Grade-'
-                              .text
-                              .size(18)
-                              .fontFamily(regular)
-                              .color(titlecolor)
-                              .make(),
-                          'A+'
-                              .text
-                              .size(18)
-                              .fontFamily(regular)
-                              .color(Colors.amber)
-                              .make(),
-                        ],
-                      ),
-                      70.heightBox,
-                      if (pickedfile != null)
-                        Container(
-                          height: 20,
-                          width: 300,
-                          color: Color.fromARGB(255, 221, 221, 220),
-                          child: Text(pickedfile!.name),
+                  height: context.height * 0.2,
+                  width: context.width,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: FeatureColor),
+                    color: boxtilecolor,
+                  ),
+                  child: Text(
+                    'description here',
+                    style: TextStyle(color: titlecolor),
+                  ),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    height: 20,
+                    width: context.width * 0.7,
+                    color: subtexColor,
+                    child: const Text('Attachment file'),
+                  ),
+                  SizedBox(
+                    height: 25,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          const Color.fromARGB(255, 155, 175, 192),
                         ),
-                      30.heightBox,
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          ElevatedButton(
+                      ),
+                      onPressed: () {},
+                      child: const Icon(
+                        Icons.download,
+                        color: subtexColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              10.heightBox,
+              SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Card(
+                  color: backgrounghilghtcolor,
+                  shadowColor: const Color.fromARGB(255, 17, 17, 16),
+                  clipBehavior: Clip.hardEdge,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          style: const TextStyle(color: FeatureColor),
+                          decoration: const InputDecoration(
+                            hintText: "write comment",
+                            hintStyle: TextStyle(color: Colors.white54),
+                            filled: true,
+                            fillColor: Color.fromARGB(255, 86, 119, 142),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                            ),
+                          ),
+                        ),
+                        40.heightBox,
+                        if (pickedfile != null)
+                          Container(
+                            height: 20,
+                            width: 300,
+                            color: Color.fromARGB(255, 221, 221, 220),
+                            child: Text(pickedfile!.name),
+                          ),
+                        30.heightBox,
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 foregroundColor: Colors.white,
                                 backgroundColor:
@@ -185,11 +210,10 @@ class _AsignmnetState extends State<Asignmentpage> {
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
-                              onPressed: () {
-                                selectfile();
-                              },
-                              child: Text('select')),
-                          ElevatedButton(
+                              onPressed: selectfile,
+                              child: Text('select'),
+                            ),
+                            ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 foregroundColor: Colors.white,
                                 backgroundColor:
@@ -200,30 +224,40 @@ class _AsignmnetState extends State<Asignmentpage> {
                                 ),
                               ),
                               onPressed: () {},
-                              child: Text('submit')),
-                        ],
-                      ),
-                    ],
+                              child: Text('turn in'),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'point:8/10',
+                              style: TextStyle(color: Colors.amber),
+                            ),
+                            Card(
+                              child: Container(
+                                height: context.height * 0.1,
+                                width: context.width,
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: FeatureColor),
+                                  color: boxtilecolor,
+                                ),
+                                child: Text(
+                                  'feedback',
+                                  style: TextStyle(color: titlecolor),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
-            )),
-            'Feedback'
-                .text
-                .fontFamily(regular)
-                .color(titlecolor)
-                .size(20)
-                .make(),
-            Card(
-              color: backgrounghilghtcolor,
-              shadowColor: const Color.fromARGB(255, 17, 17, 16),
-              clipBehavior: Clip.hardEdge,
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.95,
-                height: MediaQuery.of(context).size.height * 0.23,
-              ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );
